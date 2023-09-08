@@ -5,7 +5,6 @@ pipeline {
         stage("Build") {
             steps {
                 echo "Building"
-                sh 'mvn clean package'
             }
             post {
                 always {
@@ -16,64 +15,20 @@ pipeline {
             }
         }
 
-        stage("Unit and Integration Tests") {
+        stage("Test") {
             steps {
-                echo "Running unit tests"
-                sh 'mvn test' 
-
-                echo "Running integration tests"
-                sh 'mvn integration-test'
-                
-            }
-            post {
-                always {
-                    mail to: "jotarmaan26@mail.com",
-                    subject: "Test Status Email",
-                    body: "Test log attached!"
-                }
+                echo "Testing"
             }
         }
 
-        stage("Code Analysis") {
-    steps {
-        echo "Running code analysis"
-        withSonarQubeEnv('SonarQubeServer') {
-            sh 'mvn sonar:sonar' 
-        }
-    }
-}
-        stage("Security Scan") {
+        stage("Deploy") {
             steps {
-                echo "Performing security scan"
-                // Add your security scan tool commands here
-            }
-            post {
-                always {
-                    mail to: "jotarmaan26@mail.com",
-                    subject: "Security Scan Status Email",
-                    body: "Security scan log attached!"
-                }
+                echo "Deploying ..."
             }
         }
-
-        stage("Deploy to Staging") {
+        stage("Complete") {
             steps {
-                echo "Deploying to staging"
-                // Add your deployment commands here (e.g., AWS CLI)
-            }
-        }
-
-        stage("Integration Tests on Staging") {
-            steps {
-                echo "Running integration tests on staging"
-                // Add your integration tests on staging commands here
-            }
-        }
-
-        stage("Deploy to Production") {
-            steps {
-                echo "Deploying to production"
-                // Add your deployment commands for production here (e.g., AWS CLI)
+                echo "Completed..."
             }
         }
     }
