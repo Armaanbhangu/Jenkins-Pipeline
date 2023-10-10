@@ -8,7 +8,20 @@ pipeline {
         }
         stage('Unit and Integration Tests') {
             steps {
-                echo 'Using JUnit for integration testing'  
+                echo 'Using JUnit for integration testing'
+            }
+            post {
+                failure {
+                    emailext subject: "Unit and Integration Tests Failed: ${currentBuild.fullDisplayName}",
+                              body: "The unit and integration tests have failed. Please check the logs.",
+                              to: 'jotarmaan26@gmail.com',
+                              attachLog: true
+                }
+                success {
+                    emailext subject: "Unit and Integration Tests Successful: ${currentBuild.fullDisplayName}",
+                              body: "The unit and integration tests have completed successfully.",
+                              to: 'jotarmaan26@gmail.com'
+                }
             }
         }
         stage('Code Analysis') {
@@ -18,7 +31,20 @@ pipeline {
         }
         stage('Security Scan') {
             steps {
-                echo 'Security scan with OWASP ZAP' 
+                echo 'Security scan with OWASP ZAP'
+            }
+            post {
+                failure {
+                    emailext subject: "Security Scan Failed: ${currentBuild.fullDisplayName}",
+                              body: "The security scan has failed. Please check the logs.",
+                              to: 'jotarmaan26@gmail.com',
+                              attachLog: true
+                }
+                success {
+                    emailext subject: "Security Scan Successful: ${currentBuild.fullDisplayName}",
+                              body: "The security scan has completed successfully.",
+                              to: 'jotarmaan26@gmail.com'
+                }
             }
         }
         stage('Deploy to Staging') {
