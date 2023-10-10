@@ -56,8 +56,7 @@ pipeline {
                     body: "The pipeline has successfully completed. Please find the logs attached.",
                     to: 'jotarmaan26@gmail.com',
                     attachLog: true
-                        
-            //archiveArtifacts artifacts: '**/build.log', onlyIfSuccessful: true
+                   
         }
     }
 }
