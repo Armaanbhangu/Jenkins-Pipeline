@@ -43,13 +43,13 @@ pipeline {
             // Send failure email notification
             emailext subject: "Pipeline Failed: ${currentBuild.fullDisplayName}",
                       body: "The pipeline has failed. Please check the logs.",
-                      to: 'jotarmaan26@gmail.com'  // Replace with the appropriate email address
+                      to: "jotarmaan26@gmail.com"  
         }
         success {
             // Send success email notification with attached logs
             emailext subject: "Pipeline Successful: ${currentBuild.fullDisplayName}",
                       body: "The pipeline has successfully completed. Please find the logs attached.",
-                      to: 'jotarmaan26@gmail.com',  // Replace with the appropriate email address
+                      to:"jotarmaan26@gmail.com",  
                       attachLog: true
         }
     }
