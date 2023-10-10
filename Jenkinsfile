@@ -42,7 +42,7 @@ pipeline {
     failure {
         emailext subject: "Pipeline Failed: ${currentBuild.fullDisplayName}",
                   body: "The pipeline has failed. Please check the logs.",
-                  to: 'jotarmaan26@gmail.com',
+                  to: 'jotarmaan26@gmail.com'
     }
     success {
         emailext subject: "Pipeline Successful: ${currentBuild.fullDisplayName}",
